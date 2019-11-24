@@ -1,0 +1,104 @@
+{% extends 'bus_vendor/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  {% block extrahead%}
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+
+  <style media="screen">
+    @media print {
+  body * {
+    visibility: hidden;
+  }
+  #printing, #printing * {
+    visibility: visible;
+  }
+  #printing {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+#nava{
+  padding-left: 600px
+}
+
+  </style>
+  {% endblock %}
+  </head>
+  <body>
+    {% block body%}
+    <div style="margin-bottom:10%;margin-top:10%">
+    <form method="post" autocomplete="off">
+      <div class="row">
+      {% csrf_token%}
+      <div class="col-5">
+      </div>
+      <div class="col-5">
+      {{form|crispy}}
+      <button type="submit" class="btn btn-success" style="margin-top:2%;margin-left:10%" name="button"><h5 style="color:white">check</h5></button>
+
+      </div>
+      </div>
+      <script>
+        $(function () {
+          $("#id_date").datepicker({
+            format:'yyyy-mm-dd',
+          });
+        });
+      </script>
+
+    </form>
+    <br>
+    <div id="printing">
+    {% if total%}
+    <div class="container">
+      <table class="table">
+        <tr>
+          <th>Booking id</th>
+          <th>Name</th>
+          <th>seat no</th>
+          <th>from</th>
+          <th>to</th>
+          </tr>
+    {% for i in total %}
+      <tr>
+        <td>{{i.2}}</td>
+        <td>{{i.0}}</td>
+        <td>{{i.1}}</td>
+        <td>{{i.3}}</td>
+        <td>{{i.4}}</td>
+      </tr>
+    {% endfor %}
+
+
+    </table>
+    </div>
+    {% endif %}
+    </div>
+    <button style="margin-left:80%" class="btn btn-success" onclick="printDiv('printing')" ><h5 style="color:white">Print this page</h5></button>
+    </div>
+    <script type="text/javascript">
+      function printDiv(divName) {
+           var printContents = document.getElementById(divName).innerHTML;
+           var originalContents = document.body.innerHTML;
+
+           document.body.innerHTML = printContents;
+
+           window.print();
+
+           document.body.innerHTML = originalContents;
+      }
+        </script>
+    {% endblock %}
+  </body>
+</html>

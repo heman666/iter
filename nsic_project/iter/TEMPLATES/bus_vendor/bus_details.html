@@ -1,0 +1,145 @@
+{% extends 'bus_vendor/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% block extrahead %}
+    <style media="screen">
+      #nava{
+        padding-left: 600px
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/static/bus_vendor/jquery.datetimepicker.css" / >
+
+    <script src="http://127.0.0.1:8000/static/bus_vendor/jquery.js"></script>
+    <script src="http://127.0.0.1:8000/static/bus_vendor/jquery.datetimepicker.full.min.js"></script>
+
+{% endblock %}
+  </head>
+  <body>
+{% block body %}
+<form method='POST' autocomplete="off" style="margin:5%">
+{%csrf_token%}
+<div class="container card" style="width:40%">
+  <div class="row text-center">
+<div class="col" style="margin-top:2%">
+  <h2>Bus Details</h2>
+<hr>
+</div>
+  </div>
+  <div class="row">
+<div class="col">
+    <input style="width:100%;height:40px" type="{{form.serviceno.html_type}}" placeholder="    Service No" name="{{form.serviceno.html_name}}"/>
+</div>
+  </div>
+<br>
+  <div class="row">
+<div class="col">
+<select style="width:100%;height:40px" name="{{form.bus_type.html_name}}">
+  <option value="Sleeper">Sleeper</option>
+  <option value="Semi Sleeper">Semi Sleeper</option>
+  <option value="Seater">Seater</option>
+
+</select>
+</div>
+<div class="col">
+  <select style="width:100%;height:40px" name="{{form.bus_model.html_name}}">
+    <option value="scania">scania</option>
+    <option value="volvo">volvo</option>
+    <option value="super luxary">super luxary</option>
+    <option value="Normal">Normal</option>
+
+  </select>
+
+
+</div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <input style="width:100%;height:40px" type="{{form.start_city.html_type}}" placeholder="    From" name="{{form.start_city.html_name}}" >
+    </div>
+    <div class="col" >
+      <input style="width:100%;height:40px" type="{{form.destination_city.html_type}}" placeholder="    To" name="{{form.destination_city.html_name}}" >
+    </div>
+  </div>
+  <br>
+<div class="row">
+  <div class="col">
+    <div class="input-group date"  data-target-input="nearest">
+        <input style="width:100%;height:40px" id="datetimepicker1"type="{{form.start.html_type}}" placeholder="Start Date and time" name="{{form.start.html_name}}"  data-target="#datetimepicker1"/>
+    </div>
+
+  </div>
+  <div class="col">
+    <div class="input-group date"  data-target-input="nearest">
+        <input style="width:100%;height:40px" id="datetimepicker2" type="{{form.reach.html_type}}" placeholder="Reach Date and time"name="{{form.reach.html_name}}"  data-target="#datetimepicker2"/>
+    </div>
+
+  </div>
+
+
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <input style="width:100%;height:40px" value="40" type="{{form.noseats.html_type}}" placeholder="no of seats"name="{{form.noseats.html_name}}"  data-target="#datetimepicker2"/>
+
+  </div>
+
+
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <input style="width:100%;height:40px"  type="{{form.costperkm.html_type}}" placeholder="    costperkm"name="{{form.costperkm.html_name}}"  data-target="#datetimepicker2"/>
+
+  </div>
+
+
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <input style="width:100%;height:40px"  type="{{form.distance_from_startcity.html_type}}" placeholder="    distance_from_startcity"name="{{form.distance_from_startcity.html_name}}"  />
+
+  </div>
+
+
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <input style="width:100%;height:40px"  type="{{form.journeytime.html_type}}" placeholder="    journeytime in minutes"name="{{form.journeytime.html_name}}"  />
+
+  </div>
+
+
+</div>
+<br>
+
+<button type="submit" class="btn btn-success" name="button">Add Bus</button>
+<br>
+</div>
+</form>
+<script>
+      $('#datetimepicker1').datetimepicker(
+      {
+        format:'Y-m-d H:i',
+      }
+      );
+      $('#datetimepicker2').datetimepicker(
+      {
+        format:'Y-m-d H:i',
+      }
+      );
+</script>
+{% endblock %}
+
+  </body>
+</html>
